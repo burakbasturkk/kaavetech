@@ -1,0 +1,43 @@
+<div clas ="container"></div>
+<nav class ="navbar navbar-dark navbar-expand-lg" style="background-color: #9D2929 ">
+   
+        <a class="navbar-brand mx-5" href="{%url 'home' %}">Teknik Servis</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a  class="nav-link mx-6" href="{%url 'home' %}">Anasayfa</a>
+                </li>
+                <li class="nav-item">
+                    <a  class="nav-link" href="{%url 'blogs' %}">Müşteri Ekle</a>
+                </li>
+                <li class="nav-item">
+                    <a  class="nav-link" href="{%url 'blogs' %}">Cihaz Ekle</a>
+                </li>
+                <li class="nav-item">
+                    <a  class="nav-link" href="{%url 'blogs' %}">Cihaz Listesi</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a  class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a  class="nav-link" href="">Welcome, {{ user.get_full_name|title }}</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a  class="nav-link mx-6" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a  class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                {% endif %}
+        
+            </ul>
+        </div>
+    </div>
+</nav>
