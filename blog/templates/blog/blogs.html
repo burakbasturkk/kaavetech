@@ -1,9 +1,10 @@
+
 {% extends "base.html" %}
-{% block title %} Müşteri Kayıt {% endblock %}
+{% block title %} {{Category.name}} {% endblock %}
 
 {% block content %}
 
-
+   
     <div class="container mt-3">
         <div class="row">
             <div class="col-3">
@@ -12,7 +13,24 @@
                 
             </div>
             <div class="col-9">
-                <h1 clas="title"> aaa </h1>
+                
+                <h1 clas="title">  
+                            
+                     <h3>{% if blog %}
+                            {% for item in blog%}
+                                {{item.name|title}} 
+                            {% endfor %}
+                        {%endif%}
+                     </h3>
+                        <h6 class="title">
+                            {% if blog %}
+                            {% for item in blog%}
+                             <div>Adres:</div> {{item.adres|title}}
+                             <div>Telefon:</div>{{item.telefon|title}} 
+                            {% endfor %}
+                        {%endif%}
+                        </h6>
+                </h1>
                 <hr>          
                  {% if blogs|length > 0 %}
                    {% for blog in blogs %}
@@ -21,7 +39,7 @@
                      {% endif %}
                    {% endfor %}
                 {% else %}
-                    <div class ="alert alert-warning">No Blogs</div>
+                    <div class ="alert alert-warning">Kayıtlı cihaz bulunmamaktadır.</div>
                 {% endif %} 
             </div>
         </div>

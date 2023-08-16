@@ -3,38 +3,6 @@ from django.http.response import HttpResponse
 from blog.models import Blog, Category   
 
 
-data = {
-    "blogs" : [
-        {
-            "id" : 1,
-            "title": "komple web geliştirme",
-            "image" : "1.jpeg",
-            "is_active" : True,
-            "is_home" : True,
-            "description" : "başari orai yüksek",
-        },
-
-        {
-            "id" : 2,
-            "title": "python",
-            "image" : "2.jpeg",
-            "is_active" : True,
-            "is_home" : True,
-            "description" : "başari orani yüksek",
-        },
-
-        {
-            "id" : 3,
-            "title": "django",
-            "image" : "3.jpeg",
-            "is_active" : True,
-            "is_home" : True,
-            "description" : "başari orani yüksek",
-        }
-    ]
-}
-
-# Create your views here.
 
 def index (request):
     if not request.user.is_authenticated:
@@ -46,9 +14,8 @@ def index (request):
     }
 
     return render (request, "blog/index.html", context)
+
 def blogs (request):
-    if not request.user.is_authenticated:
-       return redirect("login")   
     context = {
         "blogs" : Blog.objects.filter(is_active=True),
         "categories" : Category.objects.all()
@@ -57,22 +24,41 @@ def blogs (request):
     return render (request, "blog/blogs.html", context)
 
 def blog_details (request, slug):
+    
     if not request.user.is_authenticated:
        return redirect("login")       
     blog = Blog.objects.get(slug=slug)
+    category = blog.categories
     return render (request, "blog/blog-details.html", {
-        "blog": blog
+        "blog": blog,
     })
 
 def blogs_by_category (request, slug):
-    if not request.user.is_authenticated:
-       return redirect("login")       
+     
     context = {
         "blogs" : Category.objects.get(slug=slug).blog_set.filter(is_active=True),
+        "blog" :Category.objects.filter(slug=slug),
         #"blogs":Blog.objects.filter(is_active=True, category__slug=slug),
         "categories": Category.objects.all(),
         "selected_category" : slug
-        
-    
     }
     return render(request, "blog/blogs.html", context)
+
+def musterikayit (request):
+    if not request.user.is_authenticated:
+           return redirect("home")
+     
+
+    yenimusteri = Category()
+    if request.method == "POST":
+        yenimusteri = Category()
+        name = request.POST["musteriadi"]
+        yenimusteri.name = name
+        mail = request.POST["musterimail"]
+        yenimusteri.mail = mail
+        telefon = request.POST["musteritelefon"]
+        yenimusteri.telefon = telefon
+        adres = request.POST["musteriadres"]
+        yenimusteri.adres = adres
+        yenimusteri.save()
+    return render(request, "blog/musterikayit.html")

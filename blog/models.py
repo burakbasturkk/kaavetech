@@ -6,6 +6,9 @@ from autoslug import AutoSlugField
 
 class Category (models.Model):
     name = models.CharField (max_length=150)
+    mail = models.EmailField(max_length=254, default="mail")
+    telefon = models.CharField(null=False, blank=False, unique=True, max_length=11, default="telefon")
+    adres = models.CharField (max_length=150, default="adres", blank=True)
     slug = models.SlugField(null=False, blank=True,unique=True, db_index=True,editable=False)
     #slug = AutoSlugField(populate_from ='name', always_update = True,)
    
@@ -27,7 +30,7 @@ class Blog (models.Model):
     is_home = models.BooleanField(default=False)
     slug = models.SlugField(null=False, blank=True, unique=True, db_index=True, editable=False)
    # slug = AutoSlugField(populate_from ='title', always_update = True,)
-    categories = models.ManyToManyField(Category, blank=True)
+    categories = models.ForeignKey(Category, null=True,blank=True, on_delete=models.DO_NOTHING)
     def __str__(self):
         return f"{self.title}"
     
