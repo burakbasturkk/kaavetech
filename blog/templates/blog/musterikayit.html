@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{%block css_files%}
+
+   <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+ {% endblock %}
+
+{% block title %} Musteri Kayit {% endblock %}
+
+{% block content %}
+
+
+<div class="container mt-3">
+  <div class="col">
+    <h1>Musteri Kayit</h1>
+    <hr>
+
+    <form method="POST">
+          {% csrf_token %}
+          {% if  error %}
+           <div class="alert alert-danger">
+            {{error}}
+           </div>
+          {% endif %}
+
+        <div class="mb-3">
+            <label for="musteriadi" class="form-label">Müşteri Adi</label>
+            <input type="text" class="form-control" name="musteriadi">
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="musteritelefon" class="form-label">Müşteri Telefon</label>
+            <input type="text" class="form-control" name="musteritelefon">
+          </div>
+          <div class="col">
+            <label for="musterimail" class="form-label">Email</label>
+            <input type="email" class="form-control" name="musterimail">
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col">
+            <label for="musteriadres" class="form-label">Müşteri Adres</label>
+            <input type="text" class="form-control" name="musteriadres">
+          </div>
+          <div class="col">
+            <label for="firstname" class="form-label">Firstname</label>
+            <input type="text" class="form-control" name="firstname">
+          </div>
+        </div>
+    
+        
+        <div class="mb-3"></div>
+
+        <input type="submit" value="Kaydet" class="btn btn-primary"> 
+
+    </form>
+  </div>
+</div>
+    
+{% endblock %}
+
+{%block js_files%}
+<script src ="{%static 'blog/js/script.js' %}"></script>
+
+{%endblock%}
+

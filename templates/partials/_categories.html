@@ -2,7 +2,10 @@
 
 {% for category in categories %}
     {% if category.slug == selected_category %}
-        <a class="list-group-item list-group-action active" href="{% url 'blogs_by_category' category.slug %}">{{ category.name|title }}</a>
+        <a class="list-group-item list-group-action active" 
+            href="{% url 'blogs_by_category' category.slug %}">
+            {{ category.name|title }}
+        </a>
     
     {% else %}
     <a class="list-group-item list-group-action" href="{% url 'blogs_by_category' category.slug %}">{{ category.name|title }}</a>
